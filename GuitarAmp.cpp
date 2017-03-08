@@ -12,7 +12,7 @@
 #include <cstring>
 #include <initializer_list>
 
-#include <sndfile.hh>
+// #include <sndfile.hh>
 
 #include <thread>
 #include <vector>
@@ -406,17 +406,20 @@ GuitarAmp::GuitarAmp(IPlugInstanceInfo instanceInfo)
         idx++;
         subidx++;
     }
-    sb.Menu->AddSeparator();
-    sb.Menu->AddItem(new IPopupMenuItemEx("Custom Impulse Response", IPopupMenuItem::kNoFlags, idx));
-    sb.NumItems = gImpulses.size() + 1;
+
+		// *** disable cust IR ***
+    // sb.Menu->AddSeparator();
+    // sb.Menu->AddItem(new IPopupMenuItemEx("Custom Impulse Response", IPopupMenuItem::kNoFlags, idx));
+    // sb.NumItems = gImpulses.size() + 1;
     sb.OnChange = [this](int v) {
+			/*
         if (v == gImpulses.size()) {
             // custom response
             GetGUI()->PromptForFile(&mCustFile, EFileAction::kFileOpen, &mCustDir, "wav");
             if (nullptr != mCustFile.Get() && LoadIRFromFile(mCustFile.Get())) {
                 mCab = v;
             }
-        } else {
+        } else */ {
             mCab = v;
             // std::cout << "Selected " << mCab << std::endl;
         }
@@ -424,6 +427,8 @@ GuitarAmp::GuitarAmp(IPlugInstanceInfo instanceInfo)
             SetupCabinet();
         }
     };
+		
+
     mCabID = LSelectBox::Create(this, pGraphics, &sb, &layoutCab);
 
     layoutOversampling.Index(layoutCab.Index());
@@ -617,6 +622,7 @@ void GuitarAmp::SetupCabinet() {
     mVolume->set_input_port(0, mCabinet.get(), 0);
 }
 
+/* // *** disable cust IR ***
 bool GuitarAmp::LoadIRFromFile(const char* file) {
     SndfileHandle sndfile(file);
 
@@ -643,6 +649,7 @@ bool GuitarAmp::LoadIRFromFile(const char* file) {
 
     return true;
 }
+*/
 
 void GuitarAmp::Resample(std::vector<double>& in, std::vector<double>& out, int rateSrc, int rateDst) {
     r8b::CDSPResampler16IR resampler(rateSrc, rateDst, RESAMPLE_BLOCK_SIZE);

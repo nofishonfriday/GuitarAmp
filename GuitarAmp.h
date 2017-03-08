@@ -102,7 +102,7 @@ class GuitarAmp : public IPlug, IPlugEasy {
     void Setup();
     void SetupTubes(bool useTubeParameters = false);
     void SetupCabinet();
-    bool LoadIRFromFile(const char* file);
+    // bool LoadIRFromFile(const char* file); // disable load cust IR
     void Resample(std::vector<double>& in, std::vector<double>& out, int rateSrc, int rateDst);
 
     inline void SetUIParam(int idx, double val) {

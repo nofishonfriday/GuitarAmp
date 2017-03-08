@@ -199,15 +199,15 @@ if exist "%programfiles(x86)%" (copy /y "$(TargetPath)" "$(VST3_64_PATH)\GuitarA
       <PreprocessorDefinitions>$(VST3_DEFS);$(RELEASE_DEFS);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>$(VST3_INCLUDES);$(AudioTKTriode3Filter_ROOT)\release\32\include;$(r8brain_Root);$(libsndfile_ROOT)\libsndfile\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VST3_INCLUDES);$(AudioTKTriode3Filter_ROOT)\release\32\include;$(r8brain_Root);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>base.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKCore_static.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKEQ_static.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKTools_static.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKSpecial_static.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKPreamplifier_static.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKUtility_static.lib;$(libsndfile_ROOT)\libsndfile\lib\libsndfile-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\VST3_SDK\base\win\$(Platform)\$(Configuration)\;$(WDL_PATH)\IPlug\build-win\$(Platform)\$(Configuration)\;$(WDL_PATH)\lice\build-win\$(Platform)\$(Configuration)\;$(AudioTKTriode3Filter_ROOT)\release\32\lib;$(libsndfile_ROOT)\libsndfile\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>base.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKCore_static.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKEQ_static.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKTools_static.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKSpecial_static.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKPreamplifier_static.lib;$(AudioTKTriode3Filter_ROOT)\release\32\lib\ATKUtility_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\VST3_SDK\base\win\$(Platform)\$(Configuration)\;$(WDL_PATH)\IPlug\build-win\$(Platform)\$(Configuration)\;$(WDL_PATH)\lice\build-win\$(Platform)\$(Configuration)\;$(AudioTKTriode3Filter_ROOT)\release\32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>$(WDL_PATH)\IPlug\IPlugVST3.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
@@ -225,15 +225,15 @@ copy /y "$(TargetPath)" "$(VST3_32_PATH)\GuitarAmp.vst3"</Command>
       <PreprocessorDefinitions>$(VST3_DEFS);$(RELEASE_DEFS);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>$(VST3_INCLUDES);$(AudioTKTriode3Filter_ROOT)\release\64\include;$(r8brain_Root);$(libsndfile_ROOT)\libsndfile_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VST3_INCLUDES);$(AudioTKTriode3Filter_ROOT)\release\64\include;$(r8brain_Root);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>..\..\VST3_SDK\base\win\$(Platform)\$(Configuration)\;$(x64_LIB_PATHS);$(AudioTKTriode3Filter_ROOT)\release\64\lib;$(libsndfile_ROOT)\libsndfile\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>base.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKCore_static.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKEQ_static.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKTools_static.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKSpecial_static.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKPreamplifier_static.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKUtility_static.lib;$(libsndfile_ROOT)\libsndfile_64\lib\libsndfile-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\VST3_SDK\base\win\$(Platform)\$(Configuration)\;$(x64_LIB_PATHS);$(AudioTKTriode3Filter_ROOT)\release\64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>base.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKCore_static.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKEQ_static.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKTools_static.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKSpecial_static.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKPreamplifier_static.lib;$(AudioTKTriode3Filter_ROOT)\release\64\lib\ATKUtility_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>$(WDL_PATH)\IPlug\IPlugVST3.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
