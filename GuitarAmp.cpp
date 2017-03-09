@@ -477,7 +477,12 @@ void GuitarAmp::ProcessDoubleReplacing(double** inputs, double** outputs, int nF
 }
 
 void GuitarAmp::Setup() {
-    int channels = IsInChannelConnected(1) ? 2 : 1;
+    // int channels = IsInChannelConnected(1) ? 2 : 1; // Win port: doesn't seem to work properly with VST3/Reaper
+		// http://forum.cockos.com/showthread.php?p=1814999&posted=1#post1814999
+		// DBGMSG("%d", IsInChannelConnected(1));
+		// int channels = 2; // set to always 2 ch. for now
+		int channels = 1; // make mono (also adjust in resource.h/PLUG_CHANNEL_IO)
+
     int rate = GetSampleRate();
     int rateOver = rate * mOversamplingFactor;
 

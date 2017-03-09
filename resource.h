@@ -44,7 +44,15 @@ const int PLUG_TYPE_IDS_AS[2] = {'EFA1', 'EFA2'};  // AudioSuite
 instrument determined by PLUG _IS _INST
 */
 
-#define PLUG_CHANNEL_IO "1-1 2-2"
+/*
+http://forum.cockos.com/showpost.php?p=1252238&postcount=2
+you #define PLUG_CHANNEL_IO "<num_inputs>-<num_outputs>" in your ressource.h file, e.g. #define PLUG_CHANNEL_IO "2-2" for stereo in/stereo out. You can specify multiple input/output configurations depending on what your plug-in supports, e.g. #define PLUG_CHANNEL_IO "1-1 2-2" for mono in/mono out, and stereo in/stereo out. The user can then choose which configuration to use, e.g. in REAPER by enabling or disabling input/output pins.
+*/
+// #define PLUG_CHANNEL_IO "1-1 2-2"
+// Win port: make mono because IsInChannelConnected(1) not working properly, see GuitarAmp.cpp
+#define PLUG_CHANNEL_IO "1-1"
+// #define PLUG_CHANNEL_IO "2-2"
+
 
 #define PLUG_LATENCY 0
 #define PLUG_IS_INST 0
