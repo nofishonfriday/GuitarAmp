@@ -24,21 +24,36 @@ https://github.com/nofishonfriday/GuitarAmp
 
 NOTES:
 
+- Usage:  
 
-- Usage:
+USE AT YOUR OWN RISK !
 
-Requires libsndfile-1.dll (32 or 64 bit) to be present on your computer.  
-(otherwise host will probably complain during scanning)  
+~~Requires libsndfile-1.dll (32 or 64 bit) to be present on your computer.~~
+~~(otherwise host will probably complain during scanning)~~
  
-Put the libsndfile-1.dll with the same architecture as your host (32 or 64 bit) either in  
--- install folder of your host/DAW or  
--- Windows system path:  
-64 bit version: C:\Windows\System32  
-32bit version: C:\Windows\SysWow64  
-Get it here:  
-http://www.mega-nerd.com/libsndfile/#Download
+~~Put the libsndfile-1.dll with the same architecture as your host (32 or 64 bit) either in~~
+~~-- install folder of your host/DAW or~~
+~~-- Windows system path:~~ 
+~~64 bit version: C:\Windows\System32~~
+~~32bit version: C:\Windows\SysWow64~~
+~~Get it here:~~
+~~http://www.mega-nerd.com/libsndfile/#Download~~
+
+No need for libsndfile currently when using the alpha1b pre-release binary (Windows VST2 plugin,  
+32/64 bit, no Windows standalone version available).  
+However, when you build from the current master branch you'll need libsndfile.  
 
 
+Changelog:
+----------
+
+\- alpha2 (Feb 13, 2018)
+add option to disable built in IR's, target Win 10 (instead of 8.1)
+(load custom IR's still disabled)  
+  
+	
+	
+	
 - Building:
 
 Done with Visual Studio 2015 CE
