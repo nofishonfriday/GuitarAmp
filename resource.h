@@ -1,4 +1,4 @@
-#define PLUG_MFR "OSAR Music"
+#define PLUG_MFR "OSAR Music/nofish"
 #define PLUG_NAME "GuitarAmp"
 
 #define PLUG_CLASS_NAME GuitarAmp
