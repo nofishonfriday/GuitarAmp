@@ -94,6 +94,9 @@ class GuitarAmp : public IPlug, IPlugEasy {
     int mCab = 0;
     bool mBypass = false;
 
+	// bypass IR
+	bool mIRbypassed = false;
+
     // Custom IR
     std::unique_ptr<Impulse> mCustIR;
     WDL_String mCustFile;

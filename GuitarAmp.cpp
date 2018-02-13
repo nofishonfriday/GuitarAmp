@@ -14,6 +14,8 @@
 
 // #include <sndfile.hh>
 
+#include <cstdio>
+
 #include <thread>
 #include <vector>
 
@@ -407,24 +409,32 @@ GuitarAmp::GuitarAmp(IPlugInstanceInfo instanceInfo)
         subidx++;
     }
 
-		// *** disable cust IR ***
-    // sb.Menu->AddSeparator();
-    // sb.Menu->AddItem(new IPopupMenuItemEx("Custom Impulse Response", IPopupMenuItem::kNoFlags, idx));
-    // sb.NumItems = gImpulses.size() + 1;
+	// *** disable cust IR ***
+    sb.Menu->AddSeparator();
+    sb.Menu->AddItem(new IPopupMenuItemEx("Bypass IR", IPopupMenuItem::kNoFlags, idx));
+    sb.NumItems = gImpulses.size() + 1;
     sb.OnChange = [this](int v) {
-			/*
+			
         if (v == gImpulses.size()) {
+			/*
             // custom response
             GetGUI()->PromptForFile(&mCustFile, EFileAction::kFileOpen, &mCustDir, "wav");
             if (nullptr != mCustFile.Get() && LoadIRFromFile(mCustFile.Get())) {
                 mCab = v;
             }
-        } else */ {
+			*/
+
+			// bypass IR
+			mIRbypassed = true;
+			Setup();
+        } else  {
             mCab = v;
+			mIRbypassed = false;
             // std::cout << "Selected " << mCab << std::endl;
-        }
-        if (mGain) {
-            SetupCabinet();
+
+			if (mGain) {
+				SetupCabinet();
+			}
         }
     };
 		
@@ -565,7 +575,18 @@ void GuitarAmp::Setup() {
         mGain->set_input_port(0, mTube[0].get(), 0);
         mTube[1]->set_input_port(0, mGain.get(), 0);
 
-        SetupCabinet();
+		// bypass IR
+		if (!mIRbypassed)
+			SetupCabinet();
+		else {
+
+			/* // doesn't do anything
+			if (mCabinet) {
+				mCabinet->reset();
+			}
+			*/
+			mVolume->set_input_port(0, mToneStack.get(), 0);
+		}	
     }
 }
 
@@ -614,7 +635,11 @@ void GuitarAmp::SetupCabinet() {
     mCabinet.reset(new CabType());
     mCabinet->set_split_size(CONVO_SPLIT_SIZE);
     mCabinet->set_input_sampling_rate(rate);
-    Impulse& impulse(mCab < gImpulses.size() ? gImpulses[mCab] : *mCustIR);
+
+    // Impulse& impulse(mCab < gImpulses.size() ? gImpulses[mCab] : *mCustIR);
+	// bypass IR
+	Impulse& impulse(gImpulses[mCab]);
+
     if (impulse.SampleRate != rate) {
         std::vector<double> ir;
         Resample(impulse.Frames, ir, impulse.SampleRate, rate);
@@ -627,34 +652,37 @@ void GuitarAmp::SetupCabinet() {
     mVolume->set_input_port(0, mCabinet.get(), 0);
 }
 
-/* // *** disable cust IR ***
+ // *** disable cust IR ***
+/*
 bool GuitarAmp::LoadIRFromFile(const char* file) {
-    SndfileHandle sndfile(file);
 
-    if (sndfile.error()) {
-        std::string error = sndfile.strError();
-        std::thread([this, error] { GetGUI()->ShowMessageBox(error.c_str(), "Failed", MB_OKCANCEL); }).detach();
-        return false;
-    }
-    if (sndfile.channels() > 1) {
-        std::thread([this] {
-            GetGUI()->ShowMessageBox("File contains more than one channel.", "Failed", MB_OKCANCEL);
-        }).detach();
-        return false;
-    }
+	SndfileHandle sndfile(file);
 
-    mCustIR.reset(new Impulse());
-    mCustIR->Name = mCustIR->Vendor = mCustIR->Mic = "Custom";
-    mCustIR->SampleRate = sndfile.samplerate();
-    int toread = sndfile.frames();
-    mCustIR->Frames.resize(toread);
-    do {
-        toread -= sndfile.read(mCustIR->Frames.data() + (mCustIR->Frames.size() - toread), sndfile.frames());
-    } while (toread > 0);
+	if (sndfile.error()) {
+		std::string error = sndfile.strError();
+		std::thread([this, error] { GetGUI()->ShowMessageBox(error.c_str(), "Failed", MB_OKCANCEL); }).detach();
+		return false;
+	}
+	if (sndfile.channels() > 1) {
+		std::thread([this] {
+			GetGUI()->ShowMessageBox("File contains more than one channel.", "Failed", MB_OKCANCEL);
+		}).detach();
+		return false;
+	}
 
-    return true;
+	mCustIR.reset(new Impulse());
+	mCustIR->Name = mCustIR->Vendor = mCustIR->Mic = "Custom";
+	mCustIR->SampleRate = sndfile.samplerate();
+	int toread = sndfile.frames();
+	mCustIR->Frames.resize(toread);
+	do {
+		toread -= sndfile.read(mCustIR->Frames.data() + (mCustIR->Frames.size() - toread), sndfile.frames());
+	} while (toread > 0);
+
+	return true;
 }
 */
+
 
 void GuitarAmp::Resample(std::vector<double>& in, std::vector<double>& out, int rateSrc, int rateDst) {
     r8b::CDSPResampler16IR resampler(rateSrc, rateDst, RESAMPLE_BLOCK_SIZE);
